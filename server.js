@@ -9,7 +9,7 @@ import assignmentRouter from './router/assignmentRouter.js';
 import quizRouter from './router/quizRouter.js';
 // import discussionRouter from './router/discussionRouter.js';
 import paymentRouter from './router/paymentRouter.js';
-import submissionRouter from './router/submissionRouter.js';
+import submissionRouter from './router/assignmentSubmissionRouter.js';
 import dotenv from 'dotenv';
 dotenv.config();
 

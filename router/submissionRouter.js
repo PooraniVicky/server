@@ -61,6 +61,8 @@ submissionRouter.get('/:assignmentId', authenticate, async (req, res) => {
     }
 });
 
+
+
 // submissionRouter.get('/:assignmentId', authenticate, async (req, res) => {
 //     const assignmentId = req.params.assignmentId;
 
