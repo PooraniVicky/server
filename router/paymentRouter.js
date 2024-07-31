@@ -16,6 +16,10 @@ paymentRouter.post('/payment/:enrollmentId', authenticate, async (req, res) => {
             currency: 'usd', // Adjust currency as needed
             description: `Payment for Enrollment ID: ${enrollment_id}`,
             confirm: true,
+            automatic_payment_methods: {
+                enabled: true,
+                allow_redirects: 'never', // Disable redirects
+            },
         });
 
         // Handle successful payment (update enrollment status, etc.)

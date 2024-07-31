@@ -9,17 +9,18 @@ import assignmentRouter from './router/assignmentRouter.js';
 import quizRouter from './router/quizRouter.js';
 // import discussionRouter from './router/discussionRouter.js';
 import paymentRouter from './router/paymentRouter.js';
-import submissionRouter from './router/assignmentSubmissionRouter.js';
+// import submissionRouter from './router/assignmentSubmissionRouter.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
 
 //middleware
+
 app.use(express.json()); 
 app.use(cors({
-origin: 'http://localhost:5173',
-Credential: true,
+    origin: 'http://localhost:5173',
+    Credential: true,
 methods: 'GET,POST,PUT,DELETE',
 allowedHeaders: ['Content-Type', 'Authorization'],
 }));
@@ -33,7 +34,7 @@ app.use('/apiAssignments', assignmentRouter);
 app.use('/apiQuizzes', quizRouter);
 // app.use('/apiDiscussion', discussionRouter);
 app.use('/apiPayments', paymentRouter);
-app.use('/apiSubmissions', submissionRouter);
+// app.use('/apiSubmissions', submissionRouter);
 app.use('/apiLessons', lessonRouter);
 
 const PORT = process.env.PORT || 4000;
