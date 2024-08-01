@@ -84,7 +84,7 @@ courseRouter.post('/', authenticate, authorize(['instructor', 'admin']), upload.
 
         // Respond with success message and created course details
         res.status(201).json(course);
-console.log("course:", course);
+        console.log("course:", course);
     } catch (error) {
         console.error('Error creating course:', error); // Add detailed logging
         res.status(400).json({ error: error.message }); //
@@ -107,7 +107,7 @@ courseRouter.get('/:courseId', authenticate, async (req, res) => {
 
     try {
         const courseId = req.params.courseId;
-    // console.log("courseId:", courseId)
+        // console.log("courseId:", courseId)
         if (!courseId) {
             return res.status(400).json('CourseId not Found');
         }

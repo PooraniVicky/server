@@ -193,34 +193,34 @@ assignmentRouter.put('/submission/:assignmentId/:submissionId/grade', authentica
 assignmentRouter.delete('/submission/:assignmentId/:submissionId', authenticate, authorize(['admin', 'instructor']), async (req, res) => {
   const { assignmentId, submissionId } = req.params;
 
-    console.log('Received request to delete submission:', {
-      assignmentId,
-      submissionId
+  console.log('Received request to delete submission:', {
+    assignmentId,
+    submissionId
   });
 
   try {
-      const assignment = await Assignment.findById(assignmentId);
-      if (!assignment) {
-          console.log('Assignment not found:', assignmentId);
-          return res.status(404).json({ message: 'Assignment not found' });
-      }
+    const assignment = await Assignment.findById(assignmentId);
+    if (!assignment) {
+      console.log('Assignment not found:', assignmentId);
+      return res.status(404).json({ message: 'Assignment not found' });
+    }
 
-      // Use `id` method to get the submission subdocument
-      const submission = assignment.submissions.id(submissionId);
-      if (!submission) {
-          console.log('Submission not found:', submissionId);
-          return res.status(404).json({ message: 'Submission not found' });
-      }
+    // Use `id` method to get the submission subdocument
+    const submission = assignment.submissions.id(submissionId);
+    if (!submission) {
+      console.log('Submission not found:', submissionId);
+      return res.status(404).json({ message: 'Submission not found' });
+    }
 
-      // Use `pull` method to remove the subdocument
-      assignment.submissions.pull(submissionId);
-      const updatedAssignment = await assignment.save();
+    // Use `pull` method to remove the subdocument
+    assignment.submissions.pull(submissionId);
+    const updatedAssignment = await assignment.save();
 
-      res.status(200).json({ message: 'Submission deleted successfully.', assignment: updatedAssignment });
+    res.status(200).json({ message: 'Submission deleted successfully.', assignment: updatedAssignment });
   } catch (error) {
-      console.error('Error deleting submission:', error.message);
-      console.error('Error stack:', error.stack);
-      res.status(500).json({ message: 'Internal Server Error', error: error.message });
+    console.error('Error deleting submission:', error.message);
+    console.error('Error stack:', error.stack);
+    res.status(500).json({ message: 'Internal Server Error', error: error.message });
   }
 });
 

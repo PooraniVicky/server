@@ -22,29 +22,25 @@ const submissionSchema = new mongoose.Schema({
     comments: {
         type: String // Optional comments for feedback
     }
-},{ timestamps: true });
+}, { timestamps: true });
 const assignmentSchema = new mongoose.Schema({
-    course: { 
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Course', 
-        required: true 
+    course: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Course',
+        required: true
     },
-    title: { 
-        type: String, 
-        required: true 
+    title: {
+        type: String,
+        required: true
     },
-    description: { 
-        type: String, 
-        required: true 
+    description: {
+        type: String,
+        required: true
     },
-    dueDate: { 
-        type: Date, 
-        required: true 
+    dueDate: {
+        type: Date,
+        required: true
     },
-    // submissions: {
-    //     type: mongoose.Schema.Types.ObjectId, 
-    //     ref: 'Submission', 
-    // },
     submissions: [submissionSchema]
 
 

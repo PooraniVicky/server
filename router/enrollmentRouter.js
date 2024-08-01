@@ -52,7 +52,7 @@ enrollmentRouter.post('/:courseId', authenticate, async (req, res) => {
 enrollmentRouter.get('/', authenticate, async (req, res) => {
     try {
         const enrollments = await Enrollment.find({}).populate('user').populate('course');
-        res.status(200).json({enrollments});
+        res.status(200).json({ enrollments });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -62,8 +62,8 @@ enrollmentRouter.get('/', authenticate, async (req, res) => {
 enrollmentRouter.get('/:courseId', authenticate, async (req, res) => {
     try {
         const enrollments = await Enrollment.find({ course: req.params.courseId }).populate('user').populate('course');
-        
-        res.status(200).json({enrollments});
+
+        res.status(200).json({ enrollments });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -80,13 +80,13 @@ enrollmentRouter.get('/:userId', authenticate, async (req, res) => {
 });
 
 // Get a specific enrollment by ID
-enrollmentRouter.get('/:courseId/:enrollmentId', authenticate,  async (req, res) => {
+enrollmentRouter.get('/:courseId/:enrollmentId', authenticate, async (req, res) => {
     try {
         const enrollment = await Enrollment.findById(req.params.enrollmentId).populate('user').populate('course');
         if (!enrollment) {
             return res.status(404).json({ message: 'Enrollment not found' });
         }
-        res.status(200).json({enrollment});
+        res.status(200).json({ enrollment });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -120,7 +120,7 @@ enrollmentRouter.delete('/:enrollmentId', authenticate, authorize(['admin']), as
     const { enrollmentId } = req.params;
 
     try {
-        const deletedEnrollment = await Enrollment.findByIdAndDelete( enrollmentId);
+        const deletedEnrollment = await Enrollment.findByIdAndDelete(enrollmentId);
         if (!deletedEnrollment) {
             return res.status(404).json({ message: 'Enrollment not found' });
         }

@@ -9,7 +9,7 @@ const quizRouter = express.Router();
 quizRouter.post('/:courseId', authenticate, authorize(['instructor', 'admin']), async (req, res) => {
     const { title, questions } = req.body;
     const { courseId } = req.params;
-    
+
     if (!courseId || !mongoose.Types.ObjectId.isValid(courseId)) {
         return res.status(400).json({ message: 'Valid Course ID is required' });
     }
@@ -33,7 +33,7 @@ quizRouter.post('/:courseId', authenticate, authorize(['instructor', 'admin']), 
                 return res.status(400).json({ message: 'Each question must have a correct answer' });
             }
         }
-  
+
         const newQuiz = new Quiz({ course: courseId, title, questions });
         await newQuiz.save();
         res.status(201).json(newQuiz);
@@ -55,7 +55,7 @@ quizRouter.get('/course/:courseId', authenticate, async (req, res) => {
         const count = await Quiz.countDocuments({ course: courseId });
 
         console.log(`Fetched ${count} quizzes for Course ID: ${courseId}`);
-        
+
         res.status(200).json({ quizzes, count });
     } catch (error) {
         //console.error('Error fetching quizzes:', error);
@@ -65,33 +65,6 @@ quizRouter.get('/course/:courseId', authenticate, async (req, res) => {
 
 
 // Get quiz by ID
-// quizRouter.get('/:quizId', authenticate, async (req, res) => {
-//     const { quizId } = req.params;
-
-
-//     try {
-//         const quiz = await Quiz.findById(quizId);
-//         if (!quiz) {
-//             return res.status(404).json({ message: 'Quiz not found' });
-//         }
-//         res.status(200).json(quiz);
-//     } catch (error) {
-//         console.error('Error fetching quiz:', error);
-//         res.status(500).json({ message: 'Internal server error', error });
-//     }
-// });
-// quizRouter.get('/:quizId', authenticate, async (req, res) => {
-//   try {
-//         const quizId = req.params.quizId;
-//         const quiz = await Quiz.findById(quizId).populate('submissions.student', 'firstName lastName');
-//         if (!quiz) {
-//             return res.status(404).json({ message: 'Quiz not found' });
-//         }
-//         res.status(200).json({ quiz });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// });
 quizRouter.get('/:quizId', authenticate, async (req, res) => {
     try {
         const quizId = req.params.quizId;
@@ -153,38 +126,6 @@ quizRouter.delete('/:quizId', authenticate, authorize(['admin']), async (req, re
     }
 });
 
-// Grade quiz answers and calculate score
-// quizRouter.post('/:quizId/grade', authenticate, async (req, res) => {
-//     const { answers } = req.body;
-//     const { quizId } = req.params;
-
-//     if (!quizId || !mongoose.Types.ObjectId.isValid(quizId)) {
-//         return res.status(400).json({ message: 'Valid Quiz ID is required' });
-//     }
-
-//     try {
-//         const quiz = await Quiz.findById(quizId);
-//         if (!quiz) {
-//             return res.status(404).json({ message: 'Quiz not found' });
-//         }
-
-//         let totalScore = 0;
-
-//         quiz.questions.forEach((question, index) => {
-//             const correctAnswer = question.correctAnswer;
-//             const userAnswer = answers[index]; // Assuming answers are submitted as an array of selected options
-
-//             if (correctAnswer === userAnswer) {
-//                 totalScore += 5; // Add 5 points for each correct answer
-//             }
-//         });
-
-//         res.status(200).json({ score: totalScore });
-//     } catch (error) {
-//         console.error('Error updating quiz grade:', error);
-//         res.status(500).json({ message: 'Error submitting quiz', error });
-//     }
-// });
 quizRouter.post('/:quizId/grade', authenticate, async (req, res) => {
     try {
         const { quizId } = req.params;
@@ -233,7 +174,7 @@ quizRouter.post('/:quizId/grade', authenticate, async (req, res) => {
     }
 });
 
-  quizRouter.get('/:courseId/total-grade', authenticate, async (req, res) => {
+quizRouter.get('/:courseId/total-grade', authenticate, async (req, res) => {
     const { courseId } = req.params;
 
     if (!courseId || !mongoose.Types.ObjectId.isValid(courseId)) {
@@ -250,16 +191,6 @@ quizRouter.post('/:quizId/grade', authenticate, async (req, res) => {
         res.status(500).json({ message: 'Error fetching total quiz grade', error });
     }
 });
-//FUNCTION FOR DELETE SUBMISSION
-// quizRouter.delete('/submissions/:id', async (req, res) => {
-//     try {
-//       const { id } = req.params;
-//       await Submission.findByIdAndDelete(id);
-//       res.status(200).json({ message: 'Submission deleted successfully' });
-//     } catch (error) {
-//       res.status(500).json({ message: 'Error deleting submission', error });
-//     }
-//   });
 
 // Delete a quiz submission
 quizRouter.delete('/submissions/:submissionId', authenticate, authorize(['instructor', 'admin']), async (req, res) => {

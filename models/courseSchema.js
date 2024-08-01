@@ -10,7 +10,7 @@ const courseSchema = new mongoose.Schema({
         required: true
     },
     images: [{
-        type: String, 
+        type: String,
     }],
     instructor: {
         type: mongoose.Schema.Types.ObjectId,
@@ -45,7 +45,7 @@ const courseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    
+
 }, { timestamps: true });
 
 const Course = mongoose.models.Course || mongoose.model('Course', courseSchema);

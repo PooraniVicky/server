@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import userRouter from './router/userRouter.js'; 
+import userRouter from './router/userRouter.js';
 import courseRouter from './router/courseRouter.js';
 import lessonRouter from './router/lessonRouter.js';
 import enrollmentRouter from './router/enrollmentRouter.js';
@@ -17,12 +17,12 @@ const app = express();
 
 //middleware
 
-app.use(express.json()); 
+app.use(express.json());
 app.use(cors({
     origin: 'http://localhost:5173',
     Credential: true,
-methods: 'GET,POST,PUT,DELETE',
-allowedHeaders: ['Content-Type', 'Authorization'],
+    methods: 'GET,POST,PUT,DELETE',
+    allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 

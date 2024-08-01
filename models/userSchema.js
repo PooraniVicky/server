@@ -1,25 +1,25 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-    firstName: { 
-        type: String, 
-        required: true 
+    firstName: {
+        type: String,
+        required: true
     },
-    lastName: { 
-        type: String, 
-        required: true 
+    lastName: {
+        type: String,
+        required: true
     },
-    email: { 
-        type: String, 
-        required: true, 
-        unique: true 
+    email: {
+        type: String,
+        required: true,
+        unique: true
     },
-    password: { 
-        type: String, 
-        required: true 
+    password: {
+        type: String,
+        required: true
     },
     role: {
-        type: String, 
+        type: String,
         enum: ["student", "instructor", "admin"],
         default: "student"
     },
@@ -32,11 +32,11 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Enrollment'
     }],
-    resetToken: { 
-        type: String 
+    resetToken: {
+        type: String
     },
     resetTokenExpiry: {
-        type: Date 
+        type: Date
     }
 }, { timestamps: true });
 
