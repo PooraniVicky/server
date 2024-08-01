@@ -170,7 +170,7 @@ userRouter.post('/forgot-password', async (req, res) => {
       from: process.env.DEMO_EMAIL,
       to: email,
       subject: 'Reset Password',
-      text: `Click the following link to reset your password: http://localhost:5173/reset-password/${token}`,
+      text: `Click the following link to reset your password: https://lms-knowledgebridge.netlify.app/reset-password/${token}`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
